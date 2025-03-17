@@ -6,7 +6,7 @@ steps:
   args:
   - 'functions'
   - 'deploy'
-  - 'testFunction'
+  - 'test-function'
   - '--runtime=nodejs18'
   - '--trigger-http'
   - '--entry-point=helloWorld'
