@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'functions'
+  - 'deploy'
+  - 'addressLookup'
+  - '--runtime=nodejs18'  # Ändra vid behov till rätt Node.js-version
+  - '--trigger-http'
+  - '--entry-point=addressLookup'
+  - '--region=europe-west1'  # Anpassa till din region
+  - '--allow-unauthenticated'  # Ta bort om du inte vill tillåta oautentiserade anrop
