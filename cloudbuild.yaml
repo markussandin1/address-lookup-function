@@ -4,7 +4,7 @@ steps:
   - 'functions'
   - 'deploy'
   - 'addressLookup'
-  - '--runtime=nodejs18'  # Ändra vid behov till rätt Node.js-version
+  - '--runtime=nodejs18'  # Ändra vid behov till rätta Node.js-versionen
   - '--trigger-http'
   - '--entry-point=addressLookup'
   - '--region=europe-west1'  # Anpassa till din region
