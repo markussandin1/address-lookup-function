@@ -3,6 +3,12 @@ options:
 
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - 'ls -la && echo "Current directory content" && cat package.json && cat test.js'
+
+- name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'functions'
   - 'deploy'
