@@ -9,3 +9,17 @@ steps:
   - '--entry-point=addressLookup'
   - '--region=europe-west1'  # Anpassa till din region
   - '--allow-unauthenticated'  # Ta bort om du inte vill tillåta oautentiserade anrop
+  options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'functions'
+  - 'deploy'
+  - 'addressLookup'
+  - '--runtime=nodejs18'
+  - '--trigger-http'
+  - '--entry-point=addressLookup'
+  - '--region=europe-west1'
+  - '--allow-unauthenticated'
