@@ -1,11 +1,15 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'functions'
   - 'deploy'
-  - 'addressLookup'
+  - 'helloWorld'  # Detta bör vara helloWorld, inte addressLookup
   - '--runtime=nodejs18'
   - '--trigger-http'
-  - '--entry-point=addressLookup'
+  - '--entry-point=helloWorld'  # Entry point ska också vara helloWorld
+  - '--source=.'
   - '--region=europe-west1'
   - '--allow-unauthenticated'
