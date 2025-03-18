@@ -32,7 +32,7 @@ jobs:
     - name: Deploy Function
       run: |
         gcloud functions deploy address-lookup-new \
-          --gen2=false \
+          --gen2 false \
           --runtime=nodejs20 \
           --region=europe-west1 \
           --source=. \
