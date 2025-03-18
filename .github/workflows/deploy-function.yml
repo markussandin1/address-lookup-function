@@ -1,11 +1,47 @@
-- name: Deploy Function
-  run: |
-    gcloud functions deploy address-lookup-new \
-    --no-gen2 \
-      --runtime=nodejs18 \
-      --region=europe-west1 \
-      --source=. \
-      --trigger-http \
-      --allow-unauthenticated \
-      --entry-point=addressLookup \
-      --project=${{ secrets.GCP_PROJECT_ID }}
+name: Deploy to Cloud Functions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm ci || npm install
+      
+    - name: Decode GCP credentials
+      run: echo "${{ secrets.GCP_SA_KEY_BASE64 }}" | base64 -d > gcp-credentials.json
+      
+    - name: Setup GCloud Auth
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ github.workspace }}/gcp-credentials.json
+        
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      
+    - name: Deploy Function
+      run: |
+        gcloud functions deploy address-lookup-new \
+          --runtime=nodejs18 \
+          --region=europe-west1 \
+          --source=. \
+          --trigger-http \
+          --allow-unauthenticated \
+          --entry-point=addressLookup \
+          --project=${{ secrets.GCP_PROJECT_ID }}
+          
+    - name: Cleanup
+      run: rm gcp-credentials.json
