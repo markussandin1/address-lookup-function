@@ -3,19 +3,14 @@ options:
 
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - 'ls -la && echo "Current directory content" && cat package.json && cat test.js'
-
-- name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'functions'
   - 'deploy'
-  - 'test-function'
+  - 'address-lookup-new'
+  - '--gen2=false'  # Specificerar 1st gen
   - '--runtime=nodejs18'
   - '--trigger-http'
-  - '--entry-point=helloWorld'
+  - '--entry-point=addressLookup'
   - '--source=.'
   - '--region=europe-west1'
   - '--allow-unauthenticated'
